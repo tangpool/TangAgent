@@ -2,15 +2,18 @@
 本文档为`TangAgent`的安装文档。
 
 * 适用操作系统：`Ubuntu 64Bit`
-  * 版本：`12.04`/`13.10`/`14.04`
+  * 版本：`12.04`/`13.10`/`14.04`  
+* 技术支持
+  * _Web_: [http://bbs.tangpool.com](http://bbs.tangpool.com)
+  * _Email_: `techsupport@tangpool.com`
+
 
 ## 安装步骤
 
 ### 安装依赖库
 
 ````
-$ apt-get install build-essential autotools-dev libtool
-$ apt-get install libboost-dev libboost-thread-dev libboost-system-dev libboost-regex-dev libboost-filesystem-dev openssl libssl-dev libmysqlclient-dev daemontools
+$ apt-get install build-essential autotools-dev libtool openssl libssl-dev libmysqlclient-dev daemontools
 ````
 
 ### 安装主程序
@@ -102,9 +105,18 @@ nohup supervise /root/supervise_tangagent/ &
 $ apt-get install sysv-rc-conf ntp
 $ service ntp reload
 $ sysv-rc-conf ntp on
+````
 
-# show status
+* 查看时钟同步状态，成功同步状态：
+
+````
 $ ntpq -p
+     remote           refid      st t when poll reach   delay   offset  jitter
+==============================================================================
+ gus.buptnet.edu .INIT.          16 u    - 1024    0    0.000    0.000   0.000
+ news.neu.edu.cn .INIT.          16 u    - 1024    0    0.000    0.000   0.000
+ dns2.synet.edu. .INIT.          16 u    - 1024    0    0.000    0.000   0.000
+*golem.canonical 131.188.3.220    2 u  314 1024  377  287.850    0.151   0.522
 ````
 
 ## 程序的启动、停止与重启
@@ -139,6 +151,12 @@ $ ps aux | grep tangagent
 $ kill xxxxx
 ````
 
+### 升级
+直接覆盖可执行程序`tangagent`，完成后重启即可
+
+````
+cp -f new/tangagent old/tangagent
+````
 
 
 ## 其他注意事项
