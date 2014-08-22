@@ -1,0 +1,8 @@
+#! /bin/sh
+#
+SROOT=$(cd $(dirname "$0"); pwd)
+cd $SROOT
+
+# run tangagent
+export LC_ALL=C
+./tangagent -c agent.conf -l agent.log
