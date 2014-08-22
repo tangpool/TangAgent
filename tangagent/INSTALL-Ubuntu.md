@@ -3,6 +3,7 @@
 
 * 适用操作系统：`Ubuntu 64Bit`
   * 版本：`12.04`/`13.10`/`14.04`  
+  * GCC version >= `4.6`
 * 技术支持
   * _Web_: [http://bbs.tangpool.com](http://bbs.tangpool.com)
   * _Email_: `techsupport@tangpool.com`
@@ -21,18 +22,28 @@ $ apt-get install build-essential autotools-dev libtool openssl libssl-dev daemo
 * 主程序目录为`/root/supervise_tangagent`
 
 ````
-mkdir -p /root/supervise_tangagent
-wget https://github.com/tangpool/TangAgent/blob/master/v0.1.x/supervise_tangagent/backup_log.sh -O backup_log.sh
-wget https://github.com/tangpool/TangAgent/blob/master/v0.1.x/supervise_tangagent/run -O run
-wget https://github.com/tangpool/TangAgent/blob/master/v0.1.x/supervise_tangagent/tangagent -O tangagent
-chmod +x backup_log.sh
-chmod +x run
-chmod +x tangagent
+$ mkdir /root/supervise_tangagent
+$ wget https://codeload.github.com/tangpool/TangAgent/tar.gz/v0.1.0 -O TangAgent-0.1.0.tar.gz
+$ tar zxvf TangAgent-0.1.0.tar.gz
+$ cd TangAgent-0.1.0
+$ cp -r tangagent/supervise_tangagent/* /root/supervise_tangagent/
+````
+
+* 查看程序目录： `ls -lh /root/supervise_tangagent/`，会有如下文件：
+
+````
+-rw-r--r--  1 kevin  wheel   5.0K  8 22 16:59 agent.conf
+-rwxr-xr-x  1 kevin  wheel   207B  8 22 16:59 backup_log.sh
+-rwxr-xr-x  1 kevin  wheel   592B  8 22 16:59 check_share_time.sh
+-rw-r--r--  1 kevin  wheel   128B  8 22 16:59 crontab.example
+-rwxr-xr-x  1 kevin  wheel   128B  8 22 16:59 run
+-rwxr-xr-x  1 kevin  wheel   2.1M  8 22 16:59 tangagent
 ````
 
 * 检测动态库
 
 ````
+$ cd /root/supervise_tangagent
 $ ldd tangagent
 	linux-vdso.so.1 =>  (0x00007fff22b84000)
 	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f3de7542000)
@@ -57,9 +68,10 @@ $ ldd tangagent
 
 ````
 #
-# tangagent backup logs
+# TangAgent
 #
-0 0 * * * /root/supervise_tangagent/backup_log.sh
+0 0 * * * sh /root/supervise_tangagent/backup_log.sh
+* * * * * sh /root/supervise_tangagent/check_share_time.sh
 ````
 
 ### 优化内核参数
@@ -83,9 +95,43 @@ net.ipv4.tcp_tw_recycle = 1
 net.ipv4.tcp_tw_reuse = 1
 net.ipv4.tcp_mem = 94500000 915000000 927000000
 net.ipv4.tcp_max_orphans = 3276800
+
+fs.file-max = 2097152
 ````
 * 执行命令：`/sbin/sysctl -p`，生效之
 
+### 增大文件数限制
+
+默认文件句柄限制为1024，而TangAgent需要建立成千上万的Tcp连接，故必须调整文件句柄限制。
+
+* 编辑：`/etc/security/limits.conf`，设置如下：
+
+````
+*         hard    nofile      500000
+*         soft    nofile      500000
+root      hard    nofile      500000
+root      soft    nofile      500000
+````
+保存后请重新登录。
+
+* 编辑：`/etc/pam.d/common-session`，新增如下：
+
+````
+session required pam_limits.so
+````
+
+* 验证之：
+
+````
+$ cat /proc/sys/fs/file-max
+2097152
+$ ulimit -Hn
+500000
+$ ulimit -Sn
+500000
+````
+
+若有限制数为1024，请重新检查。
 
 ### 设置开机自启动
 
