@@ -13,7 +13,7 @@
 ### 安装依赖库
 
 ````
-$ apt-get install build-essential autotools-dev libtool openssl libssl-dev libmysqlclient-dev daemontools
+$ apt-get install build-essential autotools-dev libtool openssl libssl-dev daemontools
 ````
 
 ### 安装主程序
@@ -48,7 +48,7 @@ $ ldd tangagent
 	libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007f3de5d11000)
 ````
 
-* 若出现`Not Found`字样，说明缺少相关依赖库
+* 若出现`not found`字样，说明缺少相关依赖库
 
 
 ### 设置计划任务
@@ -152,7 +152,7 @@ $ kill xxxxx
 ````
 
 ### 升级
-直接覆盖可执行程序`tangagent`，完成后重启即可
+直接覆盖可执行程序`tangagent`，完成后重启`TangAgent`进程即可
 
 ````
 cp -f new/tangagent old/tangagent

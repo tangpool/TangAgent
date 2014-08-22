@@ -1,5 +1,8 @@
 #! /bin/sh
 #
+# @copyright tangpool.com
+# @since 2014-08
+#
 SROOT=$(cd $(dirname "$0"); pwd)
 cd $SROOT
 
