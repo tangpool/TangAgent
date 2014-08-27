@@ -23,9 +23,9 @@ $ apt-get install build-essential autotools-dev libtool openssl libssl-dev daemo
 
 ````
 $ mkdir /root/supervise_tangagent
-$ wget --no-check-certificate https://codeload.github.com/tangpool/TangAgent/tar.gz/v0.1.0 -O TangAgent-0.1.0.tar.gz
-$ tar zxvf TangAgent-0.1.0.tar.gz
-$ cd TangAgent-0.1.0
+$ wget --no-check-certificate https://codeload.github.com/tangpool/TangAgent/tar.gz/v0.1.1 -O TangAgent-0.1.1.tar.gz
+$ tar zxvf TangAgent-0.1.1.tar.gz
+$ cd TangAgent-0.1.1
 $ cp -r tangagent/supervise_tangagent/* /root/supervise_tangagent/
 ````
 
