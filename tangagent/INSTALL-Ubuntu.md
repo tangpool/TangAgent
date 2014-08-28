@@ -19,20 +19,18 @@ $ apt-get install build-essential autotools-dev libtool openssl libssl-dev daemo
 
 ### 安装主程序
 
-* 主程序目录为`/root/supervise_tangagent`
+* 主程序目录为`/root/supervise_tangagent_3333`
 * 最新版本： [https://github.com/tangpool/TangAgent/releases/latest](https://github.com/tangpool/TangAgent/releases/latest)
 
-*注意替换链接中的版本号*
-
 ````
-$ mkdir /root/supervise_tangagent
-$ wget --no-check-certificate https://codeload.github.com/tangpool/TangAgent/tar.gz/v0.1.1 -O TangAgent-0.1.1.tar.gz
-$ tar zxvf TangAgent-0.1.1.tar.gz
-$ cd TangAgent-0.1.1
-$ cp -r tangagent/supervise_tangagent/* /root/supervise_tangagent/
+$ mkdir /root/supervise_tangagent_3333
+$ wget --no-check-certificate https://github.com/tangpool/TangAgent/archive/latest.tar.gz -O latest.tar.gz
+$ tar zxvf latest.tar.gz 
+$ cd TangAgent-latest
+$ cp -r tangagent/supervise_tangagent/* /root/supervise_tangagent_3333/
 ````
 
-* 查看程序目录： `ls -lh /root/supervise_tangagent/`，会有如下文件：
+* 查看程序目录： `ls -lh /root/supervise_tangagent_3333/`，会有如下文件：
 
 ````
 -rw-r--r--  1 kevin  wheel   5.0K  8 22 16:59 agent.conf
@@ -46,7 +44,7 @@ $ cp -r tangagent/supervise_tangagent/* /root/supervise_tangagent/
 * 检测动态库
 
 ````
-$ cd /root/supervise_tangagent
+$ cd /root/supervise_tangagent_3333
 $ ldd tangagent
 	linux-vdso.so.1 =>  (0x00007fff22b84000)
 	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f3de7542000)
@@ -73,8 +71,8 @@ $ ldd tangagent
 #
 # TangAgent
 #
-0 0 * * * sh /root/supervise_tangagent/backup_log.sh
-* * * * * sh /root/supervise_tangagent/check_share_time.sh
+0 0 * * * sh /root/supervise_tangagent_3333/backup_log.sh
+* * * * * sh /root/supervise_tangagent_3333/check_share_time.sh
 ````
 
 ### 优化内核参数
@@ -145,7 +143,7 @@ $ ulimit -Sn
 #
 # start up tangagent
 #
-nohup supervise /root/supervise_tangagent/ &
+nohup supervise /root/supervise_tangagent_3333/ &
 ````
 
 ### 开启服务器时钟同步
@@ -172,7 +170,7 @@ $ ntpq -p
 ### 启动服务
 
 ````
-$ nohup supervise /root/supervise_tangagent/ &
+$ nohup supervise /root/supervise_tangagent_3333/ &
 ````
 
 ### 关闭服务
@@ -207,9 +205,16 @@ $ kill xxxxx
 cp -f new/tangagent old/tangagent
 ````
 
+### 同台机器安装多个TangAgent
+
+有时同台机器需部署多个实例，例如除了3333端口，还是需部署3334端口，则创建主目录`/root/supervise_tangagent_3334`，将上述安装过程重复一次，必须修改配置文件的地方：
+
+* 修改`stratum.server.port`为欲监听的端口
+* 修改`tangpool.agent.id`为新创建的AgentID
+* 修改矿池用户名等信息（如果需要）
 
 ## 其他注意事项
 
-* 若您安装目录非`/root/supervise_tangagent`，请注意变更路径
+* 若您安装目录非`/root/supervise_tangagent_3333`，请注意变更路径
 * 若`kill`进程出现故障，可用`kill -9 <id>`强制退出
 
