@@ -20,6 +20,9 @@ $ apt-get install build-essential autotools-dev libtool openssl libssl-dev daemo
 ### 安装主程序
 
 * 主程序目录为`/root/supervise_tangagent`
+* 最新版本： [https://github.com/tangpool/TangAgent/releases/latest](https://github.com/tangpool/TangAgent/releases/latest)
+
+*注意替换链接中的版本号*
 
 ````
 $ mkdir /root/supervise_tangagent
