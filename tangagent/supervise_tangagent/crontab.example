@@ -1,5 +1,5 @@
 #
 # TangAgent
 #
-0 0 * * * sh /root/supervise_tangagent/backup_log.sh
-* * * * * sh /root/supervise_tangagent/check_share_time.sh
+0 0 * * * sh /root/supervise_tangagent_3333/backup_log.sh
+* * * * * sh /root/supervise_tangagent_3333/check_share_time.sh
