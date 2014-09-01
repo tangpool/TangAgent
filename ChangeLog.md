@@ -1,3 +1,9 @@
+**v0.1.3**
+
+* add limit tcp connections
+* add agent id expired time
+* old versions are not support anymore
+
 **v0.1.2**
 
 * fixed counter for session add number
