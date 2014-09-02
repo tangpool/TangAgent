@@ -11,16 +11,17 @@
 
 ## 安装步骤
 
+* 本安装步骤，全程以`root`身份执行
+
 ### 安装依赖库
 
 ````
-$ apt-get install build-essential autotools-dev libtool openssl libssl-dev daemontools
+$ apt-get install build-essential autotools-dev libtool openssl libssl-dev daemontools sysv-rc-conf ntp
 ````
 
 ### 安装主程序
 
 * 主程序目录为`/root/supervise_tangagent_3333`
-* 最新版本： [https://github.com/tangpool/TangAgent/releases/latest](https://github.com/tangpool/TangAgent/releases/latest)
 
 ````
 $ mkdir /root/supervise_tangagent_3333
@@ -113,13 +114,14 @@ fs.file-max = 2097152
 root      hard    nofile      500000
 root      soft    nofile      500000
 ````
-保存后请重新登录。
 
 * 编辑：`/etc/pam.d/common-session`，新增如下：
 
 ````
 session required pam_limits.so
 ````
+
+* 完成上述步骤后请重新登录，无需重启
 
 * 验证之：
 
@@ -132,7 +134,7 @@ $ ulimit -Sn
 500000
 ````
 
-若有限制数为1024，请重新检查。
+若有限制数为1024（或类似与设置不符的值），请重新检查。
 
 ### 设置开机自启动
 
@@ -149,7 +151,6 @@ nohup supervise /root/supervise_tangagent_3333/ &
 ### 开启服务器时钟同步
 
 ````
-$ apt-get install sysv-rc-conf ntp
 $ service ntp reload
 $ sysv-rc-conf ntp on
 ````
@@ -205,6 +206,15 @@ $ kill xxxxx
 cp -f new/tangagent old/tangagent
 ````
 
+## 其他注意事项
+
+* 若您安装目录非`/root/supervise_tangagent_3333`，请注意变更路径
+* 若`kill`进程出现故障，可用`kill -9 <id>`强制退出
+
+### Agent.Id的获取
+
+* 登录[www.tangpool.com](www.tangpool.com)注册账户，然后创建新的AgentId
+
 ### 同台机器安装多个TangAgent
 
 有时同台机器需部署多个实例，例如除了3333端口，还是需部署3334端口，则创建主目录`/root/supervise_tangagent_3334`，将上述安装过程重复一次，必须修改配置文件的地方：
@@ -212,9 +222,3 @@ cp -f new/tangagent old/tangagent
 * 修改`stratum.server.port`为欲监听的端口
 * 修改`tangpool.agent.id`为新创建的AgentID
 * 修改矿池用户名等信息（如果需要）
-
-## 其他注意事项
-
-* 若您安装目录非`/root/supervise_tangagent_3333`，请注意变更路径
-* 若`kill`进程出现故障，可用`kill -9 <id>`强制退出
-
