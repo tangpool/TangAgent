@@ -1,4 +1,4 @@
-**v0.1.3.1**
+**v0.1.3.2**
 
 * write stats data to temp file and than rename file name
 
