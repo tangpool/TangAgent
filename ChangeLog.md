@@ -1,3 +1,8 @@
+**v0.1.4**
+
+* implement stratum method: `client.reconnect`, `client.get_version`, `client.show_message`
+* add config options: `stratum.server.wan.host`, `stratum.server.wan.port`
+
 **v0.1.3.2**
 
 * write stats data to temp file and than rename file name
