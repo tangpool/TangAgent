@@ -6,7 +6,7 @@
   * GCC version >= `4.6`
 * 技术支持
   * _Web_: [http://bbs.tangpool.com](http://bbs.tangpool.com)
-  * _Email_: `techsupport@tangpool.com`
+  * _Email_: [techsupport@tangpool.com](mailto:techsupport@tangpool.com)
 
 
 ## 安装步骤
