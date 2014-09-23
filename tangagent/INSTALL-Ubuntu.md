@@ -213,7 +213,7 @@ cp -f new/tangagent old/tangagent
 
 ### Agent.Id的获取
 
-* 登录[www.tangpool.com](www.tangpool.com)注册账户，然后创建新的AgentId
+* 登录[www.tangpool.com](http://www.tangpool.com)注册账户，然后创建新的AgentId
 
 ### 同台机器安装多个TangAgent
 
