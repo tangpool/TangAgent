@@ -6,7 +6,7 @@
   * GCC version >= `4.6`
 * 技术支持
   * _Web_: [http://bbs.tangpool.com](http://bbs.tangpool.com)
-  * _Email_: `techsupport@tangpool.com`
+  * _Email_: [support@tangpool.com](mailto:support@tangpool.com)
 
 
 ## 安装步骤
@@ -213,7 +213,7 @@ cp -f new/tangagent old/tangagent
 
 ### Agent.Id的获取
 
-* 登录[www.tangpool.com](www.tangpool.com)注册账户，然后创建新的AgentId
+* 登录[www.tangpool.com](http://www.tangpool.com)注册账户，然后创建新的AgentId
 
 ### 同台机器安装多个TangAgent
 
