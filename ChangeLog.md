@@ -1,3 +1,8 @@
+**v0.1.5**
+
+* add config option: primarypool.reconnect.interval
+* remove usleep when upload session stats, sleep 0.5s per batch(2k items)
+
 **v0.1.4**
 
 * implement stratum method: `client.reconnect`, `client.get_version`, `client.show_message`
