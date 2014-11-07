@@ -1,3 +1,9 @@
+**v0.1.6**
+
+* support pool eligius.st
+* add config option: data.dir
+* fixed flush session stats bug when first launch
+
 **v0.1.5**
 
 * add config option: primarypool.reconnect.interval
