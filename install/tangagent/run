@@ -1,9 +1,0 @@
-#! /bin/sh
-#
-SROOT=$(cd $(dirname "$0"); pwd)
-cd $SROOT
-
-export LC_ALL=C
-chmod +x ./tangagent
-# run tangagent
-./tangagent -c agent.conf -l agent.log

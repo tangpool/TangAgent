@@ -29,10 +29,6 @@ EOF
 
 # 安装依赖库
 install_dep() {
-    local SOHU_SOURCE='deb http://mirrors.sohu.com/ubuntu/ trusty main restricted universe multiverse
-deb http://mirrors.sohu.com/ubuntu/ trusty-security main restricted universe multiverse
-deb http://mirrors.sohu.com/ubuntu/ trusty-updates main restricted universe multiverse'
-    echo "$SOHU_SOURCE" > /etc/apt/sources.list
     apt-get update
     apt-get install -y build-essential autotools-dev libtool openssl libssl-dev supervisor ntp
 }
@@ -107,12 +103,10 @@ session required pam_limits.so'
 
 #添加计划任务
 install_crontab() {
-    local CRON_PATH=/etc/cron.d/TangAgentWeb
-    if [[ ! -e "$CRON_PATH" ]]; then
-        local crontab_content="0 0 * * * bash "$dest_dir"/backup_log.sh
+    local CRON_PATH=/etc/cron.d/TangAgent_${program_name}
+    local crontab_content="0 0 * * * bash "$dest_dir"/backup_log.sh
 * * * * * bash "$dest_dir"/check_share_time.sh"
-        echo "$crontab_content" > "$CRON_PATH"
-    fi
+    echo "$crontab_content" > "$CRON_PATH"
 }
 
 # 生成 supervisor 配置文件

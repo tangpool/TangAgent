@@ -3,32 +3,34 @@
 # @copyright tangpool.com
 # @since 2014-08
 #
-SROOT=$(cd $(dirname "$0"); pwd)
-cd $SROOT
+SROOT=$(cd "$(dirname "$0")"; pwd)
+cd "$SROOT"
 
-PID_FILE="tangagent.pid"
 # timeout: share accepted time, seconds
 TIMEOUT=300
 
-PID=`cat $PID_FILE`
+if [[ ! -e lastshare_time.txt ]]; then
+    echo 'lastshare_time.txt not exists!' >&2
+    exit 1
+fi
+
 LAST_TIME=`cat lastshare_time.txt`
 NOW_TIME=`date +%s`
 DIFF_TIME=`expr $NOW_TIME - $LAST_TIME`
 
-# check is running
-IS_EXIST=`ps aux | grep tangagent | grep $PID | wc -l`
-if test $IS_EXIST -ne 1
-then
-  echo "tangagent is not running"
-  exit 0
+PROGRAME_NAME=agent_`basename "$SROOT"`
+
+# check running
+status=`supervisorctl status "$PROGRAME_NAME" | awk '{ print $2 }'`
+if [[ "$status" != "RUNNING" ]]; then
+    echo 'not running' >&2
+    exit 2
 fi
 
 # check timeout
-if test $DIFF_TIME -gt $TIMEOUT
-then
-  echo "timeout, last: $LAST_TIME, now: $NOW_TIME"
-  kill $PID
-  sleep 10
-  kill -9 $PID
+if [[ $DIFF_TIME -gt $TIMEOUT ]]; then
+  echo "timeout, last: $LAST_TIME, now: $NOW_TIME, programe_name: $PROGRAME_NAME" >&2
+  supervisorctl restart "$PROGRAME_NAME"
 fi
 
+exit 0
