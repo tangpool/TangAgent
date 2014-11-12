@@ -104,8 +104,8 @@ session required pam_limits.so'
 #添加计划任务
 install_crontab() {
     local CRON_PATH=/etc/cron.d/TangAgent_${program_name}
-    local crontab_content="0 0 * * * bash "$dest_dir"/backup_log.sh
-* * * * * bash "$dest_dir"/check_share_time.sh"
+    local crontab_content="0 0 * * * root bash "$dest_dir"/backup_log.sh
+* * * * * root bash "$dest_dir"/check_share_time.sh"
     echo "$crontab_content" > "$CRON_PATH"
 }
 
