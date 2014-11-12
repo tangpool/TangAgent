@@ -12,7 +12,7 @@
 ## 安装
 
 ```shell
-wget install.sh
+wget https://raw.githubusercontent.com/tangpool/TangAgent/master/install/install.sh
 chmod +x install.sh
 ```
 
