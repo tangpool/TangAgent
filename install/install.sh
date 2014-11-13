@@ -53,7 +53,7 @@ install_binary() {
 # 检查动态库
 check_ldd() {
     cd "$dest_dir"
-    if [[ `ldd ./tangagent | grep 'not found' | wc -l` -ne 0 ]]; then
+    if [[ `ldd ./tangagent 2>&1 | grep 'not found' | wc -l` -ne 0 ]]; then
         echo '动态库检测失败，安装中止' >&2
         exit
     fi
@@ -104,8 +104,8 @@ session required pam_limits.so'
 #添加计划任务
 install_crontab() {
     local CRON_PATH=/etc/cron.d/TangAgent_${program_name}
-    local crontab_content="0 0 * * * bash "$dest_dir"/backup_log.sh
-* * * * * bash "$dest_dir"/check_share_time.sh"
+    local crontab_content="0 0 * * * root bash "$dest_dir"/backup_log.sh
+* * * * * root bash "$dest_dir"/check_share_time.sh"
     echo "$crontab_content" > "$CRON_PATH"
 }
 

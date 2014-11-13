@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 #
 # @copyright tangpool.com
 # @since 2014-08
