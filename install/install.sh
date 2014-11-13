@@ -53,7 +53,7 @@ install_binary() {
 # 检查动态库
 check_ldd() {
     cd "$dest_dir"
-    if [[ `ldd ./tangagent | grep 'not found' | wc -l` -ne 0 ]]; then
+    if [[ `ldd ./tangagent 2>&1 | grep 'not found' | wc -l` -ne 0 ]]; then
         echo '动态库检测失败，安装中止' >&2
         exit
     fi
