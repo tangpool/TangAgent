@@ -1,5 +1,7 @@
 # TangAgent
 
+最新版请参考：[http://docs.tangpool.com/#docs/tpp-v0.2.x/install](http://docs.tangpool.com/#docs/tpp-v0.2.x/install)
+
 ## TangAgent是什么
 
 `TangAgent`是一款Stratum Proxy系统，并集成数据采集、监控、告警等服务。应用于各种规模的矿场，可极大节省带宽需求，提高矿机集群的稳定性，是大中型矿场不可或缺的优秀管理平台。
